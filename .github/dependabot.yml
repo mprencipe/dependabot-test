@@ -1,0 +1,13 @@
+version: 2
+
+updates:
+  # GitHub Actions
+  - directory: /
+    package-ecosystem: github-actions
+    schedule:
+      interval: daily
+  # npm
+  - directory: /
+    package-ecosystem: npm
+    schedule:
+      interval: daily
