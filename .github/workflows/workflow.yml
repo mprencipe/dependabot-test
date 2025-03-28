@@ -1,10 +1,14 @@
-name: Test
-on:
-  workflow_dispatch:
+name: 'Dependency Review'
+on: [pull_request]
+
+permissions:
+  contents: read
+
 jobs:
-  stuff:
-    timeout-minutes: 1
+  dependency-review:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
-        run: sleep 5m
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
