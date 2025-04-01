@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 function hashPassword(password) {
     var hasher = crypto.createHash('md5');
-    var hashed = hasher.update(password).digest("hex"); // YES!A
+    var hashed = hasher.update(password).digest("hex"); // YES!Aa
     return hashed;
 }
