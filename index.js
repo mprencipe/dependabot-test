@@ -1,28 +1,19 @@
-const http = require('http');
-const url = require('url');
-const { exec } = require('child_process');
+const { exec } = require("child_process");
+const express = require("express");
+const app = express();
 
-const server = http.createServer((req, res) => {
-  const queryObject = url.parse(req.url, true).query;
-  const userInput = queryObject.cmd;
+app.get("/run", (req, res) => {
+  const name = req.query.name;
 
-  // VULNERABLE: Command injection
-  exec('ls ' + userInput, (error, stdout, stderr) => {
-    if (error) {
-      res.writeHead(500);
-      res.end(`Error: ${error.message}`);
+  exec(`echo Hello ${name}`, (err, stdout, stderr) => {
+    if (err) {
+      res.status(500).send("Error occurred");
       return;
     }
-    if (stderr) {
-      res.writeHead(500);
-      res.end(`Stderr: ${stderr}`);
-      return;
-    }
-    res.writeHead(200);
-    res.end(`Output: ${stdout}`);
+    res.send(`Result: ${stdout}`);
   });
 });
 
-server.listen(3000, () => {
-  console.log('Server listening on port 3000');
+app.listen(3000, () => {
+  console.log("App listening on port 3000");
 });
